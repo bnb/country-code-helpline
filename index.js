@@ -2,7 +2,6 @@ require('dotenv').config()
 const accountSid = process.env.TWILIO_ACCOUNT_SID // Your Account SID from www.twilio.com/console
 const authToken = process.env.TWILIO_AUTH_TOKEN // Your Auth Token from www.twilio.com/console
 const sender = process.env.TWILIO_SENDER // Phone number that we're using for this service
-const port = process.env.PORT || 3000
 
 const dialCodes = require('./data/dialCodes') // pull in our required dial codes information
 const dialCodeToCountryNames = require('./helpers/dialCodeToCountryNames') // converts dialCodes to readable strings of names
@@ -36,7 +35,7 @@ fastify.get('/sms', function(request, reply) {
   reply.send(twiml.toString())
 })
 
-fastify.listen({port: port}), function (err, address) {
+fastify.listen(process.env.PORT), function (err, address) {
   if(err) {
     fastify.log.error(err)
     process.exit(1)
