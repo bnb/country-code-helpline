@@ -11,7 +11,7 @@ COPY package*.json ./
 RUN npm i -g npm
 
 # building for prod so using produiction flag
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
 COPY . .
 
