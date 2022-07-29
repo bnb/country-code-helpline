@@ -36,7 +36,7 @@ fastify.get('/sms', function(request, reply) {
   reply.send(twiml.toString())
 })
 
-fastify.listen({port: 8080}), function (err, address) {
+fastify.listen({port: port}), function (err, address) {
   if(err) {
     fastify.log.error(err)
     process.exit(1)
