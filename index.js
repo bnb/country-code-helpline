@@ -13,6 +13,8 @@ const fastify =  Fastify({
   logger: true
 })
 
+fastify.register(require('@fastify/formbody')) // allow Fastify to parse application/x-www-form-urlencoded, which is what Twilio uses for TwiML webhooks
+
 // initialize Twilio
 const Twilio = require('twilio')
 const twilio = Twilio(accountSid, authToken, {
@@ -20,7 +22,7 @@ const twilio = Twilio(accountSid, authToken, {
   logLevel: 'debug'
 })
 
-const MessagingResponse = Twilio.twiml.MessagingResponse
+const MessagingResponse = Twilio.twiml.MessagingResponse // set up MessagingResponse for Twilio
 
 
 fastify.get('/', function(request, reply) {
