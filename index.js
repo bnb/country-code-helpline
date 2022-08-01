@@ -2,7 +2,7 @@ require('dotenv').config()
 const accountSid = process.env.TWILIO_ACCOUNT_SID // Your Account SID from www.twilio.com/console
 const authToken = process.env.TWILIO_AUTH_TOKEN // Your Auth Token from www.twilio.com/console
 
-const dialCodeToCountryNames = require('./helpers/dialCodeToCountryNames') // converts dialCodes to readable strings of names
+const buildReply = require('./helpers/sms/buildReply') // converts dialCodes to readable strings of names
 const send = require('./helpers/send')
 
 // initialize Fastify

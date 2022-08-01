@@ -1,3 +1,4 @@
+require('dotenv').config()
 const sender = process.env.TWILIO_SENDER // Phone number that we're using for this service
 
 // send a text message

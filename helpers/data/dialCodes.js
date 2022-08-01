@@ -1,4 +1,4 @@
-const countries = require('./raw')
+const countries = require('../../data/raw')
 
 const allCountries = countries
 const dialCodes = {}
