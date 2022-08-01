@@ -1,7 +1,7 @@
 const countries = require('./raw')
 
 const allCountries = countries
-let dialCodes = {}
+const dialCodes = {}
 
 // loop over all of the countries, restructuring the data to be objects with named keys
 for (let i = 0; i < allCountries.length; i++) {

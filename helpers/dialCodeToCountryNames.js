@@ -1,9 +1,11 @@
+const dialCodes = require('./data/dialCodes') // pull in our required dial codes information
+
 // converts dial codes to country names
 async function dialCodeToCountryNames (dialCode) {
-  if(Object.hasOwn(dialCodes, dialCode)) {
+  if (Object.hasOwn(dialCodes, dialCode)) {
     const names = []
 
-    for(let entry of dialCodes[dialCode]) {
+    for (const entry of dialCodes[dialCode]) {
       names.push(entry.name)
     }
 

@@ -1,10 +1,10 @@
 const countries = require('./raw')
 
-let allCountries = countries
+const allCountries = countries
 
 // loop over all of the countries above, restructuring the data to be objects with named keys
 for (let i = 0; i < allCountries.length; i++) {
-  let country = allCountries[i];
+  const country = allCountries[i]
   allCountries[i] = {
     name: country[0],
     iso2: country[1],
