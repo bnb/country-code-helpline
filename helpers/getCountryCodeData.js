@@ -4,6 +4,7 @@ const mysql = require('mysql2') // needed as the JavaScript interface for Planet
 const buildReply = require('./sms/buildReply')
 const validateCountryCode = require('./validateCountryCode')
 
+// this will probably go in an index.js fastify route
 async function fetchDataForCountryCode (countryCode) {
   const cleanCountryCode = await validateCountryCode(countryCode, 'code')
   // spin up the database connection
