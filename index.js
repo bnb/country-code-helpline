@@ -23,7 +23,7 @@ fastify.get('/', function (request, reply) {
   reply.send('Service is up and running!')
 })
 
-fastify.get('/sms', function (request, reply) {
+fastify.post('/sms', function (request, reply) {
   const twiml = new MessagingResponse()
   twiml.message('hello ^-^')
   reply.code(200)
