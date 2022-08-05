@@ -4,7 +4,7 @@
 const validateCountryCode = require('../data/validateCountryCode')
 // converts dial codes to country names
 async function buildHumanReadableMessage (countryCode, entries) {
-  const cleanCountryCode = await validateCountryCode(0, 'user')
+  const cleanCountryCode = await validateCountryCode(countryCode, 'user')
 
   if (cleanCountryCode !== countryCode) {
     return cleanCountryCode
