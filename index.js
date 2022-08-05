@@ -20,6 +20,7 @@ fastify.post('/sms', async function (request, reply) {
     const validatedCountryCode = validateCountryCode(request.body.Body, "user")
     const strippedBody = request.body.Body.replace('+', '')
   
+    console.log(`request.body.Body: ${request.body.Body}`, `validatedCountryCode: ${validateCountryCode}`, `strippedBody: ${strippedBody}`)
     if(validatedCountryCode === strippedBody) {
       const data = fetchDataForCountryCode(validatedCountryCode)
       const message = buildHumanReadableMessage(data)
