@@ -18,34 +18,37 @@ fastify.get('/', function (request, reply) {
 fastify.post('/sms', async function (request, reply) {
   if (request.body.Body) {
     const strippedBody = request.body.Body.replace('+', '')
+    let resposne = {
+      message: '',
+      statusCode: 0
+    }
 
     if ((strippedBody === 'help') || (strippedBody === 'Help')) {
-      const response = 'Hello! This is the Country Code Helpline. You can text us any number and we will respond with all countries that are associated with that number as a country code. Try it!'
-      reply.code(200)
-      reply.header('Content-Type', 'text/xml')
-      reply.send(response)
+      const message = 'Hello! This is the Country Code Helpline. You can text us any number and we will respond with all countries that are associated with that number as a country code. Try it!'
+      response.message = await buildMessagingResponse(message)
+      response.statusCode = 200
     } else {
       const validated = await validateCountryCode(strippedBody, 'user')
-      console.log(`request.body.Body: ${request.body.Body}`, `validated: ${validated}`, `strippedBody: ${strippedBody}`)
       if (validated === strippedBody) {
         const data = await fetchDataForCountryCode(validated)
         const message = await buildHumanReadableMessage(validated, data)
-        const response = await buildMessagingResponse(message)
-        reply.code(200)
-        reply.header('Content-Type', 'text/xml')
-        reply.send(response)
+        response.message = await buildMessagingResponse(message)
+        response.statusCode = 200
       } else {
-        const response = await buildMessagingResponse(`Oop, it looks like ${request.body.Body} is something other than a valid country code (or we messed up). Try again, maybe?`)
-        reply.code(200)
-        reply.header('Content-Type', 'text/xml')
-        reply.send(response)
+        const message = `Oop, it looks like ${request.body.Body} is something other than a valid country code (or we messed up). Try again, maybe?`
+        response.message = await buildMessagingResponse(message)
+        response.statusCode = 200
       }
     }
   } else {
-    reply.code(200)
-    reply.header('Content-Type', 'text/xml')
-    reply.send('Missing \'Body\' on the reply to the server.')
+    const message = 'Missing \'Body\' on the reply to the server.'
+    resposne.message = await buildMessagingResponse(message)
+    resposne.statusCode = 406
   }
+
+  reply.code(response.statusCode)
+  reply.header('Content-Type', 'text/xml')
+  reply.send(response.message)
 })
 
 fastify.listen({ port: process.env.PORT, host: '0.0.0.0' }, function (err, address) {
