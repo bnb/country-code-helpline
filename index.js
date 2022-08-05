@@ -44,7 +44,7 @@ fastify.post('/sms', async function (request, reply) {
 fastify.listen({ port: process.env.PORT, host: '0.0.0.0' }, function (err, address) {
   if (err) {
     fastify.log.error(err)
-    process.exitCode(1)
+    process.exit(1)
   }
 
   console.log(`Server is now listening on ${address}`)
