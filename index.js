@@ -21,6 +21,9 @@ fastify.post('/sms', async function (request, reply) {
 
     if ((strippedBody === 'help') || (strippedBody === 'Help')) {
       const response = 'Hello! This is the Country Code Helpline. You can text us any number and we will respond with all countries that are associated with that number as a country code. Try it!'
+      reply.code(200)
+      reply.header('Content-Type', 'text/xml')
+      reply.send(response)
     } else {
       const validated = await validateCountryCode(strippedBody, 'user')
       console.log(`request.body.Body: ${request.body.Body}`, `validated: ${validated}`, `strippedBody: ${strippedBody}`)
