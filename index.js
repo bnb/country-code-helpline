@@ -23,7 +23,7 @@ fastify.post('/sms', async function (request, reply) {
     console.log(`request.body.Body: ${request.body.Body}`, `validated: ${validated}`, `strippedBody: ${strippedBody}`)
     if (validated === strippedBody) {
       const data = await fetchDataForCountryCode(validated)
-      const message = await buildHumanReadableMessage(data)
+      const message = await buildHumanReadableMessage(validated, data)
       const response = await buildMessagingResponse(message)
       reply.code(200)
       reply.header('Content-Type', 'text/xml')
