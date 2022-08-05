@@ -17,7 +17,12 @@ async function validateCountryCode (countryCode, input) {
     if (input === 'user') {
       return `${response}`
     }
-  } else if (regex.test(countryCode) !== true) {
+  }
+  
+  // we know the countryCode is a string, but we want to make sure we don't yeet people because they included a +
+  const strippedCountryCode = countryCode.replace('+', '')
+
+  if (regex.test(strippedCountryCode) !== true) {
     const response = 'You have entered an invalid countryCode. Please enter a valid countryCode.'
     if (input === 'code') {
       throw new Error(response)
@@ -27,7 +32,7 @@ async function validateCountryCode (countryCode, input) {
       return `${response}`
     }
   } else {
-    return countryCode
+    return strippedCountryCode
   }
 }
 
