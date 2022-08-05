@@ -17,7 +17,7 @@ fastify.get('/', function (request, reply) {
 
 fastify.post('/sms', async function (request, reply) {
   if(request.body.Body) {
-    const validatedCountryCode = validateCountryCode(request.body.Body, "user")
+    const validatedCountryCode = await validateCountryCode(request.body.Body, "user")
     const strippedBody = request.body.Body.replace('+', '')
   
     console.log(`request.body.Body: ${request.body.Body}`, `validatedCountryCode: ${validateCountryCode}`, `strippedBody: ${strippedBody}`)
