@@ -7,7 +7,7 @@
 // when the input is `user`, it's being passed by a user.
 async function validateCountryCode (countryCode, input) {
   const regex = /^\d{1,3}$/
-  console.log(`countryCode: ${typeof countryCode} ${countryCode}`)
+  console.log(`countryCode: ${typeof countryCode} ${countryCode}`, `input: ${input}`)
   // this more simply validates that the string we're passed is a number that has up to three characters.
   if (typeof countryCode !== 'string') {
     const response = 'countryCode must be a string. Please make it a string.' // response if we can't coerse the countryCode into a string
