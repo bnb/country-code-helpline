@@ -15,12 +15,11 @@ async function buildHumanReadableMessage (countryCode, entries) {
       names.push(entry.name)
     }
 
-    if(names.length !== 0) {
-      return `Locations that use +${cleanCountryCode}:\n\n${names.join(', ')}` 
+    if (names.length !== 0) {
+      return `Locations that use +${cleanCountryCode}:\n\n${names.join(', ')}`
     } else {
       return `Hmm. It seems that there aren't any locations that use +${cleanCountryCode}!\n\nIf that doesn't seem right to you, please feel free to open an issue and let us know: https://github.com/bnb/country-code-helpline`
     }
-
   }
 }
 
