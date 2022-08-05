@@ -16,12 +16,12 @@ fastify.get('/', function (request, reply) {
 })
 
 fastify.post('/sms', async function (request, reply) {
-  if(request.body.Body) {
+  if (request.body.Body) {
     const strippedBody = request.body.Body.replace('+', '')
-    const validated = await validateCountryCode(strippedBody, "user")
-  
+    const validated = await validateCountryCode(strippedBody, 'user')
+
     console.log(`request.body.Body: ${request.body.Body}`, `validated: ${validated}`, `strippedBody: ${strippedBody}`)
-    if(validated === strippedBody) {
+    if (validated === strippedBody) {
       const data = await fetchDataForCountryCode(validated)
       const message = await buildHumanReadableMessage(data)
       const response = await buildMessagingResponse(message)
@@ -37,9 +37,8 @@ fastify.post('/sms', async function (request, reply) {
   } else {
     reply.code(200)
     reply.header('Content-Type', 'text/xml')
-    reply.send(`Missing 'Body' on the reply to the server.`)
+    reply.send('Missing \'Body\' on the reply to the server.')
   }
-
 })
 
 fastify.listen({ port: process.env.PORT, host: '0.0.0.0' }, function (err, address) {

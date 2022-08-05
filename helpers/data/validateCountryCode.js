@@ -9,16 +9,20 @@ async function validateCountryCode (countryCode, input) {
   const regex = /^\d{1,3}$/
   // this more simply validates that the string we're passed is a number that has up to three characters.
   if (typeof countryCode !== 'string') {
-    const response = 'countryCode must be a string. Please make it a string.'
-    if (input === 'code') {
-      throw new Error(response)
+    const response = 'countryCode must be a string. Please make it a string.' // response if we can't coerse the countryCode into a string
+    if (typeof countryCode === 'number') {
+      countryCode = countryCode.toString()
+    } else {
+      if (input === 'code') {
+        throw new Error(response)
+      }
     }
 
     if (input === 'user') {
       return `${response}`
     }
   }
-  
+
   // we know the countryCode is a string, but we want to make sure we don't yeet people because they included a +
   const strippedCountryCode = countryCode.replace('+', '')
 
