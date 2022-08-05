@@ -18,21 +18,26 @@ fastify.get('/', function (request, reply) {
 fastify.post('/sms', async function (request, reply) {
   if (request.body.Body) {
     const strippedBody = request.body.Body.replace('+', '')
-    const validated = await validateCountryCode(strippedBody, 'user')
 
-    console.log(`request.body.Body: ${request.body.Body}`, `validated: ${validated}`, `strippedBody: ${strippedBody}`)
-    if (validated === strippedBody) {
-      const data = await fetchDataForCountryCode(validated)
-      const message = await buildHumanReadableMessage(validated, data)
-      const response = await buildMessagingResponse(message)
-      reply.code(200)
-      reply.header('Content-Type', 'text/xml')
-      reply.send(response)
+    if((strippedBody === 'help') || (strippedBody === 'Help')) {
+      const response = 'Hello! This is the Country Code Helpline. You can text us any number and we will respond with all countries that are associated with that number as a country code. Try it!'
     } else {
-      const response = await buildMessagingResponse(`Oop, it looks like ${request.body.Body} is something other than a valid country code (or we messed up). Try again, maybe?`)
-      reply.code(200)
-      reply.header('Content-Type', 'text/xml')
-      reply.send(response)
+      const validated = await validateCountryCode(strippedBody, 'user')
+      console.log(`request.body.Body: ${request.body.Body}`, `validated: ${validated}`, `strippedBody: ${strippedBody}`)
+      if (validated === strippedBody) {
+        const data = await fetchDataForCountryCode(validated)
+        const message = await buildHumanReadableMessage(validated, data)
+        const response = await buildMessagingResponse(message)
+        reply.code(200)
+        reply.header('Content-Type', 'text/xml')
+        reply.send(response)
+      } else {
+        const response = await buildMessagingResponse(`Oop, it looks like ${request.body.Body} is something other than a valid country code (or we messed up). Try again, maybe?`)
+        reply.code(200)
+        reply.header('Content-Type', 'text/xml')
+        reply.send(response)
+      }
+
     }
   } else {
     reply.code(200)
