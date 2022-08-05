@@ -1,5 +1,5 @@
 // copied from: https://raw.githubusercontent.com/jackocnr/intl-tel-input/ca94755d5899417c2dc674775ee357b32c2c2fa0/src/js/data.js
-
+// license: https://github.com/jackocnr/intl-tel-input/blob/master/LICENSE
 // Array of country objects for the flag dropdown.
 
 // Here is the criteria for the plugin to support a given country/territory

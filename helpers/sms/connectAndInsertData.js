@@ -9,7 +9,7 @@
 require('dotenv').config()
 const database = process.env.PLANETSCALE_DATABASE_URL
 const mysql = require('mysql2') // needed as the JavaScript interface for PlanetScale
-const buildInsertQueries = require('./database/buildDatabaseQueries')
+const buildInsertQueries = require('../database/buildDatabaseQueries')
 
 async function connectAndInsertData () {
   // spin up the database connection

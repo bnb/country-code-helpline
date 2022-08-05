@@ -1,6 +1,5 @@
 require('dotenv').config()
-const accountSid = process.env.TWILIO_ACCOUNT_SID // Your Account SID from www.twilio.com/console
-const authToken = process.env.TWILIO_AUTH_TOKEN // Your Auth Token from www.twilio.com/console
+const buildMessagingResponse = require('./helpers/database/') // small helper to automatically build TwiML responses
 
 // initialize Fastify
 const Fastify = require('fastify')
@@ -10,25 +9,15 @@ const fastify = Fastify({
 
 fastify.register(require('@fastify/formbody')) // allow Fastify to parse application/x-www-form-urlencoded, which is what Twilio uses for TwiML webhooks
 
-// initialize Twilio
-const Twilio = require('twilio')
-const twilio = Twilio(accountSid, authToken, {
-  lazyLoading: true,
-  logLevel: 'debug'
-})
-
-const MessagingResponse = Twilio.twiml.MessagingResponse // set up MessagingResponse for Twilio
-
 fastify.get('/', function (request, reply) {
   reply.send('Service is up and running!')
 })
 
 fastify.post('/sms', function (request, reply) {
-  const twiml = new MessagingResponse()
-  twiml.message('hello ^-^')
+  const response = buildMessagingResponse('hello ^-^')
   reply.code(200)
   reply.header('Content-Type', 'text/xml')
-  reply.send(twiml.toString())
+  reply.send(response)
 })
 
 fastify.listen({ port: process.env.PORT, host: '0.0.0.0' }, function (err, address) {

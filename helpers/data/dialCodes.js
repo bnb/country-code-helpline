@@ -1,3 +1,4 @@
+//
 const countries = require('../../data/raw')
 
 const allCountries = countries

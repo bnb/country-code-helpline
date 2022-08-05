@@ -1,3 +1,5 @@
+// description: a file that converts raw data into objects with named keys.
+// also largely lifted from the original source that ../../data/raw.js was lifted from.
 const countries = require('../../data/raw')
 
 const allCountries = countries
