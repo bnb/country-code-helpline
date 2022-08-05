@@ -17,13 +17,13 @@ fastify.get('/', function (request, reply) {
 
 fastify.post('/sms', async function (request, reply) {
   if(request.body.Body) {
-    const validatedCountryCode = await validateCountryCode(request.body.Body, "user")
     const strippedBody = request.body.Body.replace('+', '')
+    const validated = await validateCountryCode(strippedBody, "user")
   
-    console.log(`request.body.Body: ${request.body.Body}`, `validatedCountryCode: ${validateCountryCode}`, `strippedBody: ${strippedBody}`)
-    if(validatedCountryCode === strippedBody) {
-      const data = fetchDataForCountryCode(validatedCountryCode)
-      const message = buildHumanReadableMessage(data)
+    console.log(`request.body.Body: ${request.body.Body}`, `validated: ${validated}`, `strippedBody: ${strippedBody}`)
+    if(validated === strippedBody) {
+      const data = await fetchDataForCountryCode(validated)
+      const message = await buildHumanReadableMessage(data)
       const response = await buildMessagingResponse(message)
       reply.code(200)
       reply.header('Content-Type', 'text/xml')
