@@ -18,7 +18,7 @@ fastify.get('/', function (request, reply) {
 fastify.post('/sms', async function (request, reply) {
   if (request.body.Body) {
     const strippedBody = request.body.Body.replace('+', '')
-    let resposne = {
+    let response = {
       message: '',
       statusCode: 0
     }
