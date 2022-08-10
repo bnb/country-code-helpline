@@ -26,7 +26,7 @@ fastify.post('/sms', async function (request, reply) {
   if (request.body.Body) {
     const strippedBody = request.body.Body.replace('+', '')
 
-    if ((strippedBody === 'help') || (strippedBody === 'Help')) {
+    if ((strippedBody === 'info') || (strippedBody === 'Info')) {
       const message = 'Hello! This is the Country Code Helpline. You can text us any number and we will respond with all countries that are associated with that number as a country code. Try it!'
       response.message = await buildMessagingResponse(message)
       response.statusCode = 200
