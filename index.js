@@ -51,7 +51,7 @@ fastify.post('/sms', async function (request, reply) {
   reply.send(response.message)
 })
 
-fastify.listen({ port: 8080, host: '0.0.0.0' }, function (err, address) {
+fastify.listen({ port: process.env.PORT, host: '0.0.0.0' }, function (err, address) {
   if (err) {
     fastify.log.error(err)
     process.exit(1)
