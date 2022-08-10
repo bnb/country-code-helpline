@@ -42,8 +42,8 @@ fastify.post('/sms', async function (request, reply) {
     }
   } else {
     const message = 'Missing \'Body\' on the reply to the server.'
-    resposne.message = await buildMessagingResponse(message)
-    resposne.statusCode = 406
+    response.message = await buildMessagingResponse(message)
+    response.statusCode = 406
   }
 
   reply.code(response.statusCode)
@@ -51,7 +51,7 @@ fastify.post('/sms', async function (request, reply) {
   reply.send(response.message)
 })
 
-fastify.listen({ port: process.env.PORT, host: '0.0.0.0' }, function (err, address) {
+fastify.listen({ port: 8080, host: '0.0.0.0' }, function (err, address) {
   if (err) {
     fastify.log.error(err)
     process.exit(1)
