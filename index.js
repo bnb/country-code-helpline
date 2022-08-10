@@ -16,12 +16,15 @@ fastify.get('/', function (request, reply) {
 })
 
 fastify.post('/sms', async function (request, reply) {
+  // generic response object so we don't have to repeat the reply
+  // code at the bottom of this function in every if/else branch
+  let response = {
+    message: '',
+    statusCode: 0
+  }
+
   if (request.body.Body) {
     const strippedBody = request.body.Body.replace('+', '')
-    let response = {
-      message: '',
-      statusCode: 0
-    }
 
     if ((strippedBody === 'help') || (strippedBody === 'Help')) {
       const message = 'Hello! This is the Country Code Helpline. You can text us any number and we will respond with all countries that are associated with that number as a country code. Try it!'
