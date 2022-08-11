@@ -38,7 +38,7 @@ fastify.post('/sms', async function (request, reply) {
         response.message = await buildMessagingResponse(message)
         response.statusCode = 200
       } else {
-        const message = `Oop, it looks like ${request.body.Body} is something other than a valid country code (or we messed up). Try again, maybe?`
+        const message = `Ooh, it looks like ${request.body.Body} is something other than a valid country code (or we messed up). Try again, maybe?`
         response.message = await buildMessagingResponse(message)
         response.statusCode = 200
       }
